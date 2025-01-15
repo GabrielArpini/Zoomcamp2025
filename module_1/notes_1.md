@@ -42,7 +42,7 @@ df = pd.read_parquet("yellow_tripdata_2021-01.parquet")
 Then, we import sqlalchemy to create our connection inside our notebook:
 
 ```Jupyter Notebook
-from sqlalchemy improt create_engine
+from sqlalchemy import create_engine
 engine = create_engine('postgresql://root:root@localhost:5432/ny_taxi')
 engine.connect()
 ```
