@@ -1,9 +1,9 @@
 FROM python:3.9
 
-RUN pip install pandas
+RUN pip install pandas sqlalchemy psycopg2 argparse pyarrow
 
 WORKDIR /app
 
-COPY pipeline.py pipeline.py
+COPY upload_data.py upload_data.py
 
-ENTRYPOINT [ "bash" ]
+ENTRYPOINT [ "python", "upload_data.py" ]
