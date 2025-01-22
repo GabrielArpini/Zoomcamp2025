@@ -15,7 +15,7 @@ Docker is a platform used to develop and run applications in a container, which 
 
 To learn more about Docker, we are going to reproduce the content of the source video. The following image contains the data pipeline presented in the source video, which we will reproduce:
 
-![image](\images\data_pipeline.png)
+![image](./images/data_pipeline.png)
 
 
 For instance, we need to create a container with a PostgreSQL instance running. For that, we will use the following code:
