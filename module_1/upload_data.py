@@ -18,15 +18,17 @@ def main(params):
     db = params.db
     table_name = params.table_name
     url = params.url
+    gzip = params.gzip
     
     print("Downloading data...")
     file = dataset_download(url)
     print("Download completed.")
-    
     if ".parquet" in file:
         df = pd.read_parquet(file)
-    if ".csv" in file:
-        df = pd.read_csv(file) 
+    if ".csv" in file and gzip == "True":
+        df = pd.read_csv(file,compression='gzip')
+    if ".csv" in file and gzip == "False": 
+        df = pd.read_csv(file)
     
     engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{db}')
     engine.connect()
@@ -38,8 +40,6 @@ if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='Insert CSV or parquet data to Postgres')
 
-    # user, password, host, port, database_name, table_name
-    # dataset_url
 
     parser.add_argument('--user', help='user name for postgres')
     parser.add_argument('--password', help='password for postgres')
@@ -48,6 +48,7 @@ if __name__ == '__main__':
     parser.add_argument('--db', help='database name for postgres')
     parser.add_argument('--table_name', help='table name for postgres')
     parser.add_argument('--url', help='url of the dataset')
+    parser.add_argument('--gzip', help='file is gzip or not, use True or False',default='False')
 
     args = parser.parse_args()
     main(args)
