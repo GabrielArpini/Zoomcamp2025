@@ -23,7 +23,6 @@ def main(params):
     print("Downloading data...")
     file = dataset_download(url)
     print("Download completed.")
-    print(gzip)
     if ".parquet" in file:
         df = pd.read_parquet(file)
     if ".csv" in file and gzip == "True":
@@ -35,15 +34,12 @@ def main(params):
     engine.connect()
     print("Connected to the postgres instance.")
     print("ingesting data...")
-    print(file)
     df.to_sql(name=table_name,con=engine, method='multi', chunksize=100000,if_exists='append',index=False)
     print("data successfully ingested.")
 if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='Insert CSV or parquet data to Postgres')
 
-    # user, password, host, port, database_name, table_name
-    # dataset_url
 
     parser.add_argument('--user', help='user name for postgres')
     parser.add_argument('--password', help='password for postgres')
