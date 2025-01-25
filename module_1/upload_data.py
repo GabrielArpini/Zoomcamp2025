@@ -32,7 +32,6 @@ def main(params):
     engine.connect()
     print("Connected to the postgres instance.")
     print("ingesting data...")
-    print(file)
     df.to_sql(name=table_name,con=engine, method='multi', chunksize=100000,if_exists='append',index=False)
     print("data successfully ingested.")
 if __name__ == '__main__':
