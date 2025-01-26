@@ -21,13 +21,27 @@ docker run -it \
     -e POSTGRES_DB="ny_taxi" \
     --network=pg-network \
     --name=pg-database \
-    -v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
+    -v $(pwd)/ny_green_postgres_data:/var/lib/postgresql/data \
     -p 5432:5432 \
     postgres:13
 
+
+#PGCli
+
+pgcli -h localhost -p 5432 -u root -d ny_taxi
 #ingest_data.py script cli command
 
-URL="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet"
+URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv"
+python upload_data.py \
+    --user=root \
+    --password=root \
+    --host=localhost \
+    --port=5432 \
+    --db=ny_taxi \
+    --table_name=green_taxi_zones \
+    --url=${URL}
+
+URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz"
 python upload_data.py \
     --user=root \
     --password=root \
@@ -51,6 +65,7 @@ docker run -it \
     --db=ny_taxi \
     --table_name=yellow_taxi_trips \
     --url=${URL}
+
 
 #CREATE PGADMIN
 docker run -it \
