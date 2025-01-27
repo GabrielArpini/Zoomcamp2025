@@ -150,7 +150,7 @@ docker-compose up -d
 ```
 The `-d` tag means detached mode, in other words, all the containers will run in background mode and will not stuck your terminal.
 
-If we don't specify a network inside de docker-compose.yaml it will automatically define one for you, to check the network you can run the following command:
+If we don't specify a network inside the docker-compose.yaml it will automatically define one for you, to check the network you can run the following command:
 
 ```bash
 docker network ls
