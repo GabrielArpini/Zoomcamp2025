@@ -1,0 +1,71 @@
+Question 3. Trip Segmentation Count
+
+SELECT COUNT(*) FROM public.yellow_taxi_trips
+WHERE trip_distance <= 1;
+
+SELECT COUNT(*) FROM public.yellow_taxi_trips
+WHERE trip_distance > 1 AND
+trip_distance <= 3;
+
+SELECT COUNT(*) FROM public.yellow_taxi_trips
+WHERE trip_distance > 3 AND
+trip_distance <= 7;
+
+SELECT COUNT(*) FROM public.yellow_taxi_trips
+WHERE trip_distance > 7 AND
+trip_distance <= 10;
+
+SELECT COUNT(*) FROM public.yellow_taxi_trips
+WHERE trip_distance > 10;
+
+ANSWER:
+
+104,838; 199,013; 109,645; 27,688; 35,202
+
+Question 4. Longest trip for each day
+
+SELECT lpep_pickup_datetime, max(trip_distance)
+FROM public.yellow_taxi_trips
+GROUP BY 1
+ORDER BY 2 DESC;
+
+
+Question 5. Three biggest pickup zones
+SELECT pgtz."Zone" AS pickup_location,SUM(pytt.total_amount) AS total_amount
+FROM public.yellow_taxi_trips AS pytt
+JOIN public.green_taxi_zones AS pgtz 
+ON pgtz."LocationID" = pytt."PULocationID"
+WHERE pytt.lpep_pickup_datetime::DATE = '2019-10-18'
+GROUP BY pgtz."Zone"
+HAVING SUM(pytt.total_amount) > 13000
+ORDER BY total_amount DESC;
+
+TOP 3:
+"East Harlem North"
+"East Harlem South"
+"Morningside Heights"
+
+
+
+Question 6. Largest tip
+
+SELECT 
+    gtz."Zone" AS dropoff_zone,
+    MAX(ytt.tip_amount) AS largest_tip
+FROM public.yellow_taxi_trips AS ytt
+JOIN public.green_taxi_zones AS gtz 
+ON gtz."LocationID" = ytt."DOLocationID"
+WHERE ytt."PULocationID" IN (
+    SELECT "LocationID"
+    FROM public.green_taxi_zones
+    WHERE "Zone" = 'East Harlem North'
+)
+AND ytt.lpep_pickup_datetime BETWEEN '2019-10-01' AND '2019-10-31'
+GROUP BY gtz."Zone"
+ORDER BY largest_tip DESC
+LIMIT 5;
+
+
+ANSWER
+JFK Airport
+
