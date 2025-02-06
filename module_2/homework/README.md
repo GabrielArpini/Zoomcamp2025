@@ -2,7 +2,7 @@
 
 ## Question 1
 
-![Answer 1](/imgs/q1_module2.png)
+![Answer 1](./imgs/q1_module2.png)
 
 Answer: 128.3
 
@@ -14,17 +14,17 @@ Because of the following format in the kestra file: `"{{inputs.taxi}}_tripdata_{
 
 ## Question 3
 
-![Answer 3](/imgs/q3_module2.png)
+![Answer 3](./imgs/q3_module2.png)
 
 Answer: 24.648.499
 
 ## Question 4 
-![Answer 4](/imgs/q4_module2.png)
+![Answer 4](./imgs/q4_module2.png)
 Answer: 1.734.051
 
 ## Question 5
 
-![Answer 5](/imgs/q5_module2.png)
+![Answer 5](./imgs/q5_module2.png)
 Answer: 1.925.152
 
 ## Question 6
